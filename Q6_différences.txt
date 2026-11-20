@@ -1,1 +1,6 @@
-Pas d'archive precedente
+1a2
+> // test
+17c18
+< Taille de Q6.java : 318 caracteres, 15 lignes
+---
+> Taille de Q6.java : 326 caracteres, 16 lignes
