@@ -1,0 +1,24 @@
+name: Q4
+on:
+  push:
+    paths:
+      - 'Q4.java'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Archive et push
+        run: |
+          F="Q4_archive_$(TZ=Europe/Paris date +%d-%m-%Y).txt"
+          echo "Nom : MORVAN Quentin" > "$F"
+          cat Q4.java >> "$F"
+          git config --global user.name "QuentinMorvan37"
+          git config --global user.email "quentin.morvan@etu.univ-lehavre.fr"
+          git add "$F"
+          git commit -m "Q4 archive" || echo "rien de nouveau"
+          git pull --rebase
+          git push
