@@ -1,0 +1,25 @@
+name: Q1
+on:
+  push:
+    paths:
+      - 'XYZ.txt'
+      - '.github/workflows/Q1.yaml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Creer le fichier
+        run: |
+          cp XYZ.txt Q1_archive_XYZ.txt
+      - name: Commit et push
+        run: |
+          git config --global user.name "QuentinMorvan37"
+          git config --global user.email "quentin.morvan@etu.univ-lehavre.fr"
+          git add Q1_archive_XYZ.txt
+          git commit -m "Q1 archive" || echo "rien de nouveau"
+          git pull --rebase
+          git push
