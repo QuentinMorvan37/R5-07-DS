@@ -1,0 +1,32 @@
+name: Q6
+on:
+  push:
+    paths:
+      - 'Q6.java'
+      - '.github/workflows/Q6.yaml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Archive, differences et push
+        run: |
+          PRECEDENT=$(ls Q6_archive_*.txt 2>/dev/null | sort | tail -n 1)
+          F="Q6_archive_$(TZ=Europe/Paris date +%d-%m-%Y-%H%M%S).txt"
+          echo "Nom : MORVAN Quentin" > "$F"
+          cat Q6.java >> "$F"
+          echo "Taille de Q6.java : $(wc -m < Q6.java) caracteres, $(wc -l < Q6.java) lignes" >> "$F"
+          if [ -n "$PRECEDENT" ]; then
+            diff "$PRECEDENT" "$F" > "Q6_différences.txt" || true
+          else
+            echo "Pas d'archive precedente" > "Q6_différences.txt"
+          fi
+          git config --global user.name "QuentinMorvan37"
+          git config --global user.email "quentin.morvan@etu.univ-lehavre.fr"
+          git add "$F" "Q6_différences.txt"
+          git commit -m "Q6 archive et differences" || echo "rien de nouveau"
+          git pull --rebase
+          git push
