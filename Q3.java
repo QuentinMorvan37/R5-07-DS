@@ -10,3 +10,4 @@ public class Q3
         System.out.println();
     }
 }
+ 
