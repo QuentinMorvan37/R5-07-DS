@@ -1,0 +1,5 @@
+Nom : MORVAN Quentin
+Date : 20/11/2026 15:57:39
+--- Contenu de XYZ.txt ---
+XYZ
+Taille de XYZ.txt : 4 octets
